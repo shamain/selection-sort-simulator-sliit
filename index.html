@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Selection Sort Simulator</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=9">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="HandheldFriendly" content="true" />
+        <meta name="robots" content="noindex,nofollow" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="Phaser App">
+        <meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <!-- non-retina iPhone pre iOS 7 -->
+        <link rel="apple-touch-icon" sizes="57x57" href="icons/app_icon_57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="icons/app_icon_60x60.png">
+        <!-- non-retina iPad pre iOS 7 -->
+        <link rel="apple-touch-icon" sizes="72x72" href="icons/app_icon_72x72.png">
+        <!-- non-retina iPad iOS 7 -->
+        <link rel="apple-touch-icon" sizes="76x76" href="icons/app_icon_76x76.png">
+        <!-- retina iPhone pre iOS 7 -->
+        <link rel="apple-touch-icon" sizes="114x114" href="icons/app_icon_114x114.png">
+        <!-- retina iPhone iOS 7 -->
+        <link rel="apple-touch-icon" sizes="120x120" href="icons/app_icon_120x120.png">
+        <!-- retina iPad pre iOS 7 -->
+        <link rel="apple-touch-icon" sizes="144x144" href="icons/app_icon_144x144.png">
+        <!-- retina iPad iOS 7 -->
+        <link rel="apple-touch-icon" sizes="152x152" href="icons/app_icon_152x152.png">
+        <link rel="apple-touch-icon" sizes="256x256" href="icons/app_icon_256x256.png">
+        <link rel="apple-touch-icon" sizes="512x512" href="icons/app_icon_512x512.png">
+        <link rel="apple-touch-icon" sizes="1024x1024" href="icons/app_icon_1024x1024.png">
+        <link rel="stylesheet" href="css/stylesheet.css" type="text/css" charset="utf-8" />
+        <script src="js/jquery-1.3.2.min.js"></script>
+        <script src="js/phaser.min.js"></script>
+
+        <style>
+            .btn {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #44c767), color-stop(1, #5cbf2a));
+                background: -moz-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+                background: -webkit-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+                background: -o-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+                background: -ms-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+                background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#44c767', endColorstr='#5cbf2a',GradientType=0);
+                background-color: #44c767;
+                -moz-border-radius: 42px;
+                -webkit-border-radius: 42px;
+                border-radius: 42px;
+                display: inline-block;
+                cursor: pointer;
+                color: #ffffff;
+                font-family: arial;
+                font-size: 16px;
+                padding: 15px 33px !important;
+                text-decoration: none;
+                text-shadow: 0px 1px 0px #2f6627;
+                border: 1px;
+            }
+            .btn:hover {
+                background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #5cbf2a), color-stop(1, #44c767));
+                background:-moz-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+                background:-webkit-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+                background:-o-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+                background:-ms-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+                background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cbf2a', endColorstr='#44c767',GradientType=0);
+                background-color:#5cbf2a;
+            }
+            .btn:active {
+                position:relative;
+                top:1px;
+            }
+
+
+
+            .holder{
+                background-color: rgb(162, 221, 240);
+                width: 29%;
+                height: 550px;
+                margin: 50px auto;
+                border-radius: 15px;
+                font-family: sans-serif;
+                font-size: 20px;
+
+            }
+            body{
+                background: rgb(31, 70, 92);
+
+            }
+
+            .details{
+                padding-top: 30px;
+                padding-left: 30px;
+                height: 0px;
+
+            }
+            .details input{
+                padding-left: 20px;
+            }
+            .details b{
+
+            }
+            #arraySize{
+                padding: 5px;
+                border-radius: 5px;
+
+            }
+
+            #add,#start{
+
+                padding: 5px;
+            }
+            .tbox{
+                display:inline;
+
+            }
+
+            .fields{
+                padding: 26px;
+
+            }
+            .valueField{
+                padding: 4px;
+                width: 70px;
+                margin-left: 12px;
+                border-radius: 5px;
+
+            }
+        </style>
+        <script>
+
+//            start when the page loads
+            $(document).ready(function() {
+//                click funtion of add button
+                $('#add').click(function() {
+                    //console.log('a');
+//                    each time clear the list of fields generated before and adds number of fields as user specified
+                    $('.fields').empty();
+
+//                    this loops adds felds to the view
+                    for (var i = 0; i < parseInt($('#arraySize').val()); i++) {
+                        $('.fields').append('<p class="tbox"><input type="text" placeholder="Enter Value" class="valueField"/></p>');
+
+                    }
+
+                });
+                //click funtion of start button
+
+                $('#start').click(function() {
+                    //crete a new array
+                    var x = new Array();
+                    //sarting index
+                    var i = 0;
+                    var isEmpty = false;
+//                    get the value from each field and add to array
+                    $('.valueField').each(function(i, div) {
+                        //console.log($(this).val());
+                        x[i] = $(this).val();
+                        if (x[i] == '') {
+//                            if the field value is empty ask user to enter that value
+                            var t = prompt('enter value for this element ');
+                            $(this).val(t);
+                            x[i] = parseInt(t);
+                        }
+                        i++;
+                    });
+                    //if no value entered make a alert
+                    if (x.length == 0) {
+                        alert('please enter the array data');
+                        window.location.reload();
+                    }
+                    //at the end add the code of the simulator to the html page and bind the values passed by the user to the simulator
+                    $('#hol').append('<script src=\"js/Game.js\"><\/script>');
+                    setValues(x, $('input[type="radio"]:checked').val());
+                    //console.log($('input[type="radio"]:checked').val());
+                    //hide the interface so the game will visible.
+                    $('.holder').hide();
+                });
+            });
+
+
+
+        </script>
+    </head>
+    <body>
+
+        <!--this is the interface to configure the simulator before use-->
+
+        <div class="holder" id="hol">
+
+            <p class="details">
+            <center><b>Selection Sort | Algorithm Simulator </b></center>
+        </p>
+
+        <p class="details">
+            <b style="font-size: initial;">Size of the Array </b>
+            <input type="text" placeholder="Enter array size" id="arraySize"/>
+            <input type="button" value="Add" id="add" class="btn"/>
+        </p>
+        <div class="fields">
+
+        </div>
+
+        <p class="details">
+            <b style="font-size: initial;">Select Sort Method </b>
+            <input type="radio" name="sort" value="acending" checked >Acending
+            <input type="radio" name="sort" value="decending">Decending
+
+        </p>
+        <p class="details">
+            <input type="button" class="btn" value="Start" id="start"/>
+
+        </p>
+
+        <p class="details" style="margin-top: 189px;
+           font-size: 13px;">
+            <i>
+                Created by Shamain Peiris | IT13082420 | Please enable sound for best experience.
+            </i>
+
+        </p>
+    </div>
+    <div id="game"></div><div id="orientation"></div>
+</body>
+</html>
